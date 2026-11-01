@@ -1,0 +1,13 @@
+# generated images
+output/
+
+# secrets - never commit
+.env
+*.env
+*.key
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/

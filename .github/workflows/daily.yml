@@ -1,0 +1,61 @@
+name: Daily Dr.Trader carousels
+
+on:
+  workflow_dispatch:
+    inputs:
+      offline:
+        description: "Render examples/posts.json only (no AI call, no cost)"
+        type: boolean
+        default: true
+  # Enable only after a manual run has produced 3 posts / 15 PNGs.
+  # 00:00 UTC = 07:00 Asia/Bangkok
+  # schedule:
+  #   - cron: "0 0 * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-generate
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Thai text shaping library
+        run: sudo apt-get update -q && sudo apt-get install -y -q libraqm0
+
+      - run: pip install -r requirements.txt
+
+      - name: Generate posts
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Scheduled runs have no inputs -> always use the AI.
+          OFFLINE: ${{ github.event_name == 'workflow_dispatch' && inputs.offline }}
+        run: |
+          if [ "$OFFLINE" = "true" ]; then
+            python daily_generate.py --offline
+          else
+            python daily_generate.py
+          fi
+
+      - name: Check 15 PNGs were produced
+        run: |
+          n=$(find output -name 'slide_*.png' | wc -l)
+          echo "PNG files: $n"
+          test "$n" -eq 15
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: drtrader-posts-${{ github.run_number }}
+          path: output/
+          retention-days: 14
