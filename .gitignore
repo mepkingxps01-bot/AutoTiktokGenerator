@@ -27,3 +27,6 @@ coverage/
 .env*
 !.env.example
 .vercel
+
+# review exports
+review/
