@@ -1,0 +1,84 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "@fontsource/noto-sans-thai/400.css";
+@import "@fontsource/noto-sans-thai/500.css";
+@import "@fontsource/noto-sans-thai/700.css";
+@import "@fontsource/noto-sans-thai/800.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Dr.Trader premium black & gold (dark only) */
+:root {
+  --radius: 0.85rem;
+  --background: #0a0a0b;
+  --foreground: #f5f2ea;
+  --card: #141416;
+  --card-foreground: #f5f2ea;
+  --popover: #141416;
+  --popover-foreground: #f5f2ea;
+  --primary: #f3ba2f;
+  --primary-foreground: #0a0a0b;
+  --secondary: #222226;
+  --secondary-foreground: #f5f2ea;
+  --muted: #1c1c1f;
+  --muted-foreground: #9c988f;
+  --accent: #2a2410;
+  --accent-foreground: #f3ba2f;
+  --destructive: #e5484d;
+  --success: #30a46c;
+  --border: #2a2a2f;
+  --input: #2a2a2f;
+  --ring: #f3ba2f;
+  --gold: #f3ba2f;
+}
+
+@theme inline {
+  --font-sans: "Noto Sans Thai", ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-image:
+      radial-gradient(1200px 500px at 85% -10%, rgba(243, 186, 47, 0.08), transparent 60%),
+      radial-gradient(900px 400px at -10% 110%, rgba(243, 186, 47, 0.05), transparent 60%);
+    background-attachment: fixed;
+  }
+}
+
+.gold-text {
+  background: linear-gradient(135deg, #ffd977 0%, #f3ba2f 45%, #c99a2e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

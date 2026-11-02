@@ -11,3 +11,22 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+
+# node / next
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+coverage/
+
+# local dev store (mock mode data, generated slides)
+.data/
+
+# env files
+.env*
+!.env.example
+.vercel
+
+# review exports
+review/
